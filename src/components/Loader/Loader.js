@@ -5,12 +5,6 @@ import { LoaderContainer } from './Loader.styled';
 
 
 export default class Loader extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }
 
   render() {
     return (

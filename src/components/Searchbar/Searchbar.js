@@ -23,7 +23,7 @@ export class Searchbar extends Component {
         }
         
         this.props.onSubmit(query);
-        this.setState({ query: '' });
+        // this.setState({ query: '' });
 
     }
 
@@ -33,7 +33,7 @@ export class Searchbar extends Component {
                 <SearchbarComponent>
                     <SearchForm onSubmit={this.handleSubmit}>
                         <SearchFormButton type="submit">
-                            <SearchFormButtonLabel></SearchFormButtonLabel>
+                            <SearchFormButtonLabel/>
                         </SearchFormButton>
                         
                         <SearchFormInput

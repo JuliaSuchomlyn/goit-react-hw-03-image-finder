@@ -8,7 +8,8 @@ const fetchImagesApi = ({ searchQuery = '', page = 1 }) => {
     return axios.get(
         `/?q=${searchQuery}&page=${page}&key=${apiKey}&image_type=photo&orientation=horizontal&per_page=12`
     )
-        .then(({ data }) => data.hits);
+        .then(({ data }) => data);
+
 };
 
 fetchImagesApi.propTypes = {

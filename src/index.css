@@ -6,11 +6,11 @@ html {
   overflow-x: hidden;
 }
 
-/* *, */
-/* *::before,
+*, 
+* *::before,
 *::after {
   box-sizing: inherit;
-} */
+} 
 
 body {
   margin: 0;

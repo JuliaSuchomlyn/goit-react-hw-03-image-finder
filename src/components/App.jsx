@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import imageApi from "./api/api";
+import imageApi from "../api/api";
 import { Button } from "./Button/Button";
 import { Modal } from "./Modal/Modal";
 import Loader from "./Loader/Loader";
@@ -17,21 +17,19 @@ export class App extends Component {
       largeImageURL: null,
       imgTags: null,
       error: null,
+      totalHits: null
     };
   
-  componentDidMount() {
-    this.setState({searchQuery: 'smile'})
-  }
 
   componentDidUpdate(prevProps, prevState) {
-  if (prevState.searchQuery !== this.state.searchQuery) {
-    this.fetchImages();
-  }
-  if (this.state.page > 1) {
+    if (prevState.searchQuery !== this.state.searchQuery) {
+      this.fetchImages();
+    }
+    if (this.state.images.length > 12) {
       this.scrollToBottom();
+    }
   }
-  }
-  
+
   handleSubmitForm = query => {
     if (this.state.searchQuery === query) {
       return;
@@ -51,19 +49,25 @@ export class App extends Component {
     this.setState({ isLoading: true });
 
     imageApi({ searchQuery, page })
-      .then(hits => {
+      .then(({ hits, totalHits }) => {
         this.setState(prevState => ({
           images: [...prevState.images, ...hits],
           page: prevState.page + 1,
+          totalHits: totalHits
         }));
+            // if (this.state.images.length > 12) {
+            //   this.scrollToBottom();
+            // };
+        // console.log( this.state.images.length, this.state.page )
       })
       .catch(error => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
+
   };
 
   scrollToBottom = () => {
-    return window.scrollTo({      
-      top: document.documentElement.scrollHeight,  
+    return window.scrollBy({
+      top: window.innerHeight,  
       behavior: 'smooth',
     });
   };
@@ -88,6 +92,7 @@ export class App extends Component {
       imgTags,
       isLoading,
       error,
+      totalHits
     } = this.state;
     return (      
     <div className="container">
@@ -99,9 +104,10 @@ export class App extends Component {
           openModal={this.toggleModal}
           onSetImgInfo={this.setImgInfo}
         />
-        {isLoading && <Loader />}
-        {images.length > 0 && !isLoading && (
-          <Button onLoadMore={this.fetchImages}/>
+
+        {isLoading && <Loader /> }
+        {images.length > 0 && !isLoading && totalHits > images.length &&(
+          <Button onLoadMore={this.fetchImages} />
         )}
         
         {showModal && (

@@ -6,7 +6,7 @@ export const ImageGallery = ({ images, onSetImgInfo, openModal }) => {
     return (
         <div style={{ maxWidth: '1440px', margin: '0 auto' }}>
             <ImgGallery>
-            {images.map(({ webformatURL, largeImageURL, tags }, idx) => (
+                {images.map(({ webformatURL, largeImageURL, tags }, idx) => (
                 <ImageGalleryItem
                     key={idx}
                     webformatURL={webformatURL}
