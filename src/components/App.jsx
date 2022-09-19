@@ -25,9 +25,9 @@ export class App extends Component {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.fetchImages();
     }
-    if (this.state.images.length > 12) {
-      this.scrollToBottom();
-    }
+    // if (this.state.images.length > 12) {
+    //   this.scrollToBottom();
+    // }
   }
 
   handleSubmitForm = query => {
